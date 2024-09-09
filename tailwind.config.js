@@ -27,9 +27,15 @@ export default {
   		},
   		width: {
   			'174': '10.875rem'
-  		}
+  		},
+		fontFamily:{
+			PlusJakarta:["Plus Jakarta Sans", 'sans-serif']
+		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+	require("tailwindcss-animate"),
+	require('@tailwindcss/typography'),
+],
 }
 
