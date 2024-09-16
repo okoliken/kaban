@@ -23,6 +23,8 @@ export default {
   			'secondary-2': '#635FC740',
   			'destructive-1': '#EA5555',
   			'destructive-2': '#FF9898',
+			'soft-gray':'#E4EBFA',
+			'dark-gray':'#828FA3',
   			black: '#000112',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
