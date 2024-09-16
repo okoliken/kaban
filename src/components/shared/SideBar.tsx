@@ -1,4 +1,5 @@
 export const Sidebar = () => {
+
     return (
         <div className="w-full max-w-[18.75rem] h-screen border-r border-soft-gray pt-[2.049rem] pr-6">
             <div className="pl-[2.125rem]">
