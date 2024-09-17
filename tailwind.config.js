@@ -25,6 +25,7 @@ export default {
   			'destructive-2': '#FF9898',
 			'soft-gray':'#E4EBFA',
 			'dark-gray':'#828FA3',
+			'light-gray':'#F4F7FD',
   			black: '#000112',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
