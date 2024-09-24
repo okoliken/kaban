@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-
+// hover:outline hover:outline-2 hover:outline-primary-1
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -9,7 +9,12 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border border-neutral-200 bg-white text-neutral-950 shadow dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50",
+      "rounded-[0.5rem] bg-white text-neutral-950 shadow-ll dark:border-neutral-800 dark:bg-[#2B2C37] dark:text-neutral-50 px-4 py-[1.438rem] leading-[1.181rem] cursor-pointer hover:text-primary-1",
+      "transition-all duration-200 ease-in-out",
+      "hover:shadow-md hover:scale-[1.01]",
+      "active:scale-[0.98] active:shadow-sm",
+      "dark:active:bg-neutral-800 dark:hover:text-primary-1",
+      "focus:outline-none focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600",
       className
     )}
     {...props}

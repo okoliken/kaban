@@ -73,7 +73,16 @@ export default {
   		},
   		fontFamily: {
   			PlusJakarta: ["Plus Jakarta Sans", 'sans-serif']
-  		}
+  		},
+		backgroundImage: {
+			'add-column-gradient': 'linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%)',
+		},
+		dropShadow: {
+			'll': '0px 4px 6px 0px #364E7E1A'
+		  },
+		boxShadow: {
+			'll': '0px 4px 6px 0px #364E7E1A',
+		  }
   	}
   },
   plugins: [

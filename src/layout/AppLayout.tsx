@@ -4,13 +4,13 @@ import { Sidebar } from "@/components/shared/SideBar"
 
 export const AppLayout = (props: React.PropsWithChildren) =>  {
     return (
-        <div className="flex w-full max-w-8xl bg-light-gray">
+        <div className="flex h-screen bg-light-gray dark:bg-[#20212C]">
             <Sidebar />
 
-            <main className="w-full flex-1 h-screen">
+            <main className="flex-1 flex flex-col overflow-hidden">
                 <Header />
 
-                <div className="md:pt-[0.5rem] px-6 ">
+                <div className="flex-1 overflow-x-auto pt-[0.5rem] pb-[3.125rem] px-6">
                   {props.children}
                 </div>
             </main>
