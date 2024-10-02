@@ -1,24 +1,44 @@
-
-import { Card } from "./ui/card"
-import { CSS } from '@dnd-kit/utilities';
+import { Task } from "@/utils/types";
+import { Card } from "./ui/card";
 import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
+export const DraggableCard = ({
+  children,
+  id,
+  className,
+  tasks
+}: React.PropsWithChildren<{ id: number; className: string, tasks: Task }>) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: id,
+    data:{
+      type:"task",
+      tasks
+    }
+  });
 
-export const DraggableCard = ({ children, id, className }: React.PropsWithChildren<{ id: number, className: string }>) => {
+  const style: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
 
-    const {attributes, listeners, setNodeRef, transform, isDragging} = useSortable({
-        id: id,
-      });
-
-      const style = {
-        transform: CSS.Translate.toString(transform),
-        cursor: `${isDragging ? 'grabbing' : ''}`,
-        zIndex: '99999',
-      }
-
-    return (
-        <Card ref={setNodeRef} className={className} {...attributes} {...listeners} style={style}>
-            {children}
-        </Card>
-    )
-}
+  return (
+    <Card
+      ref={setNodeRef}
+      style={style}
+      className={`${className} ${isDragging ? 'z-10' : ''}`}
+      {...attributes}
+      {...listeners}
+    >
+      {children}
+    </Card>
+  );
+};
