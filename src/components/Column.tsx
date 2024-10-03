@@ -4,10 +4,10 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Task } from "../utils/types";
-import { DraggableCard } from "./DraggableCard";
+import { DraggableCard } from "./Task";
 import { useMemo } from "react";
 
-export const Board = ({
+export const Column = ({
   id,
   title,
   tasks,
@@ -40,7 +40,7 @@ export const Board = ({
           {title} ({tasks.length})
         </h3>
       </div>
-      <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
+      <SortableContext id={String(id)} items={taskIds} strategy={verticalListSortingStrategy}>
         {tasks.map((task) => (
           <DraggableCard
             tasks={task}

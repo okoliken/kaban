@@ -1,29 +1,25 @@
-import  { useState } from "react";
 import { AppLayout } from "./layout/AppLayout";
-import { DraggableCard } from "./components/DraggableCard";
-import { Column, Task } from "./utils/types";
+import { DraggableCard } from "./components/Task";
 import {
   DndContext,
   DragOverlay,
-  closestCorners,
   KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
-  DragStartEvent,
-  DragEndEvent,
-  DragOverEvent,
 } from "@dnd-kit/core";
-import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { Board } from "./components/Board";
-import { initialData } from "./utils/helpers";
-
+import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { Column } from "./components/Column";
+import { useKanbanStore } from './store/useKanban';
 
 
 
 function App() {
-  const [columns, setColumns] = useState<Column[]>(initialData);
-  const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const columns = useKanbanStore((state) => state.columns);
+  const handleDragStart = useKanbanStore((state) => state.handleDragStart);
+  const handleDragOver = useKanbanStore((state) => state.handleDragOver);
+  const handleDragEnd = useKanbanStore((state) => state.handleDragEnd);
+  const activeTask = useKanbanStore((state) => state.activeTask);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -31,103 +27,6 @@ function App() {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
-  const handleDragStart = (event: DragStartEvent) => {
-    const { active } = event;
-    const task = findTaskById(Number(active.id));
-    setActiveTask(task);
-  };
-
-  const handleDragOver = (event: DragOverEvent) => {
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeId = Number(active.id);
-    const overId = Number(over.id);
-
-    const activeColumn = findColumnByTaskId(activeId);
-    const overColumn = findColumnById(overId);
-
-    if (!activeColumn || !overColumn || activeColumn === overColumn) return;
-
-    setColumns((prevColumns) => {
-      const activeColumnIndex = prevColumns.findIndex((col) => col.id === activeColumn.id);
-      const overColumnIndex = prevColumns.findIndex((col) => col.id === overColumn.id);
-
-      const newColumns = [...prevColumns];
-      const [movedTask] = newColumns[activeColumnIndex].tasks.splice(
-        newColumns[activeColumnIndex].tasks.findIndex((task) => task.id === activeId),
-        1
-      );
-
-      newColumns[overColumnIndex].tasks.push(movedTask);
-
-      return newColumns;
-    });
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeId = Number(active.id);
-    const overId = Number(over.id);
-
-    const activeColumn = findColumnByTaskId(activeId);
-    const overColumn = findColumnById(overId);
-
-    if (!activeColumn || !overColumn) return;
-
-    if (activeColumn !== overColumn) {
-      setColumns((prevColumns) => {
-        const activeColumnIndex = prevColumns.findIndex((col) => col.id === activeColumn.id);
-        const overColumnIndex = prevColumns.findIndex((col) => col.id === overColumn.id);
-
-        const newColumns = [...prevColumns];
-        const [movedTask] = newColumns[activeColumnIndex].tasks.splice(
-          newColumns[activeColumnIndex].tasks.findIndex((task) => task.id === activeId),
-          1
-        );
-
-        newColumns[overColumnIndex].tasks.push(movedTask);
-
-        return newColumns;
-      });
-    } else {
-      setColumns((prevColumns) => {
-        const columnIndex = prevColumns.findIndex((col) => col.id === activeColumn.id);
-        const newColumns = [...prevColumns];
-        const column = newColumns[columnIndex];
-        const oldIndex = column.tasks.findIndex((task) => task.id === activeId);
-        const newIndex = column.tasks.findIndex((task) => task.id === overId);
-
-        newColumns[columnIndex] = {
-          ...column,
-          tasks: arrayMove(column.tasks, oldIndex, newIndex),
-        };
-
-        return newColumns;
-      });
-    }
-
-    setActiveTask(null);
-  };
-
-  const findTaskById = (id: number): Task | null => {
-    for (const column of columns) {
-      const task = column.tasks.find((t) => t.id === id);
-      if (task) return task;
-    }
-    return null;
-  };
-
-  const findColumnByTaskId = (taskId: number): Column | null => {
-    return columns.find((column) => column.tasks.some((task) => task.id === taskId)) || null;
-  };
-
-  const findColumnById = (columnId: number): Column | null => {
-    return columns.find((column) => column.id === columnId) || null;
-  };
 
   return (
     <AppLayout>
@@ -137,9 +36,9 @@ function App() {
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex gap-x-4 pt-[1.5rem] m-auto">
+        <div className="flex gap-x-6 pt-[1.5rem] m-auto">
           {columns.map((column) => (
-            <Board
+            <Column
               key={column.id}
               id={column.id}
               title={column.title}
