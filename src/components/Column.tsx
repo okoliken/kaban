@@ -13,7 +13,7 @@ export const Column = ({
   tasks,
   className,
 }: {
-  id: number;
+  id: number | string;
   title: string;
   tasks: Task[];
   className: string;

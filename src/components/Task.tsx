@@ -8,7 +8,7 @@ export const DraggableCard = ({
   id,
   className,
   tasks
-}: React.PropsWithChildren<{ id: number; className: string, tasks: Task }>) => {
+}: React.PropsWithChildren<{ id: number | string; className: string, tasks: Task }>) => {
   const {
     attributes,
     listeners,
@@ -17,16 +17,20 @@ export const DraggableCard = ({
     transition,
     isDragging,
   } = useSortable({
-    id: id,
-    data:{
-      type:"task",
+    id: Number(id),
+    data: {
+      type: "task",
       tasks
     }
   });
 
+  const tiltDegree = 2; // Adjust the tilt degree as needed
+
   const style: React.CSSProperties = {
-    transform: CSS.Transform.toString(transform),
-    transition,
+    transform: isDragging
+      ? CSS.Transform.toString(transform) + ` rotate(${tiltDegree}deg)`
+      : CSS.Transform.toString(transform),
+    transition: `transform ${transition}, opacity ${transition}`,
     opacity: isDragging ? 0.5 : 1,
   };
 
@@ -34,7 +38,7 @@ export const DraggableCard = ({
     <Card
       ref={setNodeRef}
       style={style}
-      className={`${className} ${isDragging ? 'z-10' : ''}`}
+      className={`${className} ${isDragging ? 'z-10 cursor-grabbing' : ''}`}
       {...attributes}
       {...listeners}
     >

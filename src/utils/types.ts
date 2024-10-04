@@ -1,13 +1,13 @@
 
 export interface Task {
-    id: number;
+    id: string | number;
     title: string;
     subtasks: string;
     totalSubtasks: string;
   }
   
 export interface Column {
-    id: number;
+    id: string | number;
     title: string;
     tasks: Task[];
   }

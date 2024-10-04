@@ -40,13 +40,14 @@ export const useKanbanStore =
             handleDragOver: (event: DragOverEvent) => {
                 const { active, over } = event;
                 if (!over) return;
-
+            
                 const { columns } = get();
                 const activeColumn = get().findColumnByTaskId(Number(active.id));
                 const overColumn = get().findColumnById(Number(over.id));
-
+            
                 if (!activeColumn || !overColumn || activeColumn === overColumn) return;
-
+            
+                // Ensure immutability here by copying tasks
                 const newColumns = [...columns];
                 const activeColumnIndex = newColumns.findIndex(
                     (col) => col.id === activeColumn.id
@@ -54,17 +55,23 @@ export const useKanbanStore =
                 const overColumnIndex = newColumns.findIndex(
                     (col) => col.id === overColumn.id
                 );
-
-                const [movedTask] = newColumns[activeColumnIndex].tasks.splice(
-                    newColumns[activeColumnIndex].tasks.findIndex(
-                        (task) => task.id === Number(active.id)
-                    ),
+            
+                const activeTasks = [...newColumns[activeColumnIndex].tasks];
+                const overTasks = [...newColumns[overColumnIndex].tasks];
+            
+                const [movedTask] = activeTasks.splice(
+                    activeTasks.findIndex((task) => task.id === Number(active.id)),
                     1
                 );
-
-                newColumns[overColumnIndex].tasks.push(movedTask);
-                get().setColumns( newColumns )
+            
+                overTasks.push(movedTask);
+            
+                newColumns[activeColumnIndex].tasks = activeTasks;
+                newColumns[overColumnIndex].tasks = overTasks;
+            
+                get().setColumns(newColumns);
             },
+            
 
             handleDragEnd: (event: DragOverEvent) => {
                 const { active, over } = event;

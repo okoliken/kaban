@@ -1,35 +1,106 @@
 import { Column } from "./types";
+const generateRandomId = () => Math.floor(Math.random() * 1000000);
 
 export const initialData: Column[] = [
   {
     title: "TODO",
-    id: 14,
+    id: generateRandomId(),
     tasks: [
-      { title: "Build dashboard UI", subtasks: "0", totalSubtasks: "4", id: 1 },
-      { title: "Implement user authentication", subtasks: "0", totalSubtasks: "3", id: 2 },
-      { title: "Create database schema", subtasks: "0", totalSubtasks: "2", id: 3 },
-      { title: "Research competitor apps", subtasks: "0", totalSubtasks: "1", id: 4 },
+      {
+        title: "Build dashboard UI",
+        subtasks: "0",
+        totalSubtasks: "4",
+        id: generateRandomId(),
+      },
+      {
+        title: "Implement user authentication",
+        subtasks: "0",
+        totalSubtasks: '8',
+        id: generateRandomId(),
+      },
+      {
+        title: "Create database schema",
+        subtasks: "0",
+        totalSubtasks: "2",
+        id: generateRandomId(),
+      },
+      {
+        title: "Research competitor apps",
+        subtasks: "0",
+        totalSubtasks: "1",
+        id: generateRandomId(),
+      },
     ],
   },
   {
     title: "DOING",
-    id: 245,
+    id: generateRandomId(),
     tasks: [
-      { title: "Design homepage", subtasks: "2", totalSubtasks: "3", id: 5 },
-      { title: "Integrate Stripe payments", subtasks: "1", totalSubtasks: "3", id: 6 },
-      { title: "Develop user profile page", subtasks: "1", totalSubtasks: "2", id: 7 },
-      { title: "Fix login bug", subtasks: "1", totalSubtasks: "1", id: 8 },
-      { title: "Set up AWS infrastructure", subtasks: "2", totalSubtasks: "3", id: 9 },
+      {
+        title: "Design homepage",
+        subtasks: "2",
+        totalSubtasks: "3",
+        id: generateRandomId(),
+      },
+      {
+        title: "Integrate Stripe payments",
+        subtasks: "1",
+        totalSubtasks: "3",
+        id: generateRandomId(),
+      },
+      {
+        title: "Develop user profile page",
+        subtasks: "1",
+        totalSubtasks: "2",
+        id: generateRandomId(),
+      },
+      {
+        title: "Fix login bug",
+        subtasks: "1",
+        totalSubtasks: "1",
+        id: generateRandomId(),
+      },
+      {
+        title: "Set up AWS infrastructure",
+        subtasks: "2",
+        totalSubtasks: "3",
+        id: generateRandomId(),
+      },
     ],
   },
   {
     title: "DONE",
-    id: 443,
+    id: generateRandomId(),
     tasks: [
-      { title: "Deploy MVP to staging", subtasks: "3", totalSubtasks: "3", id: 10 },
-      { title: "Conduct user testing", subtasks: "1", totalSubtasks: "1", id: 11 },
-      { title: "Complete project documentation", subtasks: "2", totalSubtasks: "2", id: 12 },
-      { title: "Set up CI/CD pipeline", subtasks: "3", totalSubtasks: "3", id: 13 },
+      {
+        title: "Deploy MVP to staging",
+        subtasks: "3",
+        totalSubtasks: "3",
+        id: generateRandomId(),
+      },
+      {
+        title: "Conduct user testing",
+        subtasks: "1",
+        totalSubtasks: "1",
+        id: generateRandomId(),
+      },
+      {
+        title: "Complete project documentation",
+        subtasks: "2",
+        totalSubtasks: "2",
+        id: generateRandomId(),
+      },
+      {
+        title: "Set up CI/CD pipeline",
+        subtasks: "3",
+        totalSubtasks: "3",
+        id: generateRandomId(),
+      },
     ],
+  },
+  {
+    title: "COMPLETED",
+    id: generateRandomId(),
+    tasks: [],
   },
 ];
