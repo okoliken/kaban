@@ -1,8 +1,6 @@
 import { AppLayout } from "./layout/AppLayout";
-import { DraggableCard } from "./components/Task";
 import {
   DndContext,
-  DragOverlay,
   KeyboardSensor,
   PointerSensor,
   useSensor,
@@ -19,7 +17,7 @@ function App() {
   const handleDragStart = useKanbanStore((state) => state.handleDragStart);
   const handleDragOver = useKanbanStore((state) => state.handleDragOver);
   const handleDragEnd = useKanbanStore((state) => state.handleDragEnd);
-  const activeTask = useKanbanStore((state) => state.activeTask);
+
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -52,16 +50,6 @@ function App() {
             </button>
           </div>
         </div>
-        <DragOverlay>
-          {activeTask ? (
-            <DraggableCard tasks={activeTask} id={activeTask.id} className="mb-[1.25rem] w-[17.5rem]">
-              <h4 className="font-bold text-[0.938rem] mb-[0.5rem]">{activeTask.title}</h4>
-              <p className="text-sm text-gray-500 font-bold">
-                {activeTask.subtasks} of {activeTask.totalSubtasks} subtasks
-              </p>
-            </DraggableCard>
-          ) : null}
-        </DragOverlay>
       </DndContext>
     </AppLayout>
   );

@@ -36,42 +36,57 @@ export const useKanbanStore =
                 const task = get().findTaskById(Number(active.id));
                 set({ activeTask: task });
             },
-
             handleDragOver: (event: DragOverEvent) => {
                 const { active, over } = event;
-                if (!over) return;
+                if (!over) return; // Exit if there's no "over" task
             
-                const { columns } = get();
-                const activeColumn = get().findColumnByTaskId(Number(active.id));
-                const overColumn = get().findColumnById(Number(over.id));
+                const { columns } = get(); // Get the current columns
+                const activeColumn = get().findColumnByTaskId(Number(active.id)); // Find the column where the active task belongs
+                const overColumn = get().findColumnByTaskId(Number(over.id)); // Find the column where the over task belongs
             
-                if (!activeColumn || !overColumn || activeColumn === overColumn) return;
+                if (!activeColumn || !overColumn) return; // Exit if either column is not found
             
-                // Ensure immutability here by copying tasks
-                const newColumns = [...columns];
-                const activeColumnIndex = newColumns.findIndex(
-                    (col) => col.id === activeColumn.id
-                );
-                const overColumnIndex = newColumns.findIndex(
-                    (col) => col.id === overColumn.id
-                );
+                const newColumns = [...columns]; // Create a new copy of the columns for immutability
             
-                const activeTasks = [...newColumns[activeColumnIndex].tasks];
-                const overTasks = [...newColumns[overColumnIndex].tasks];
+                // **Handling within the same column (as already working)**
+                if (activeColumn.id === overColumn.id) {
+                    const columnIndex = newColumns.findIndex(col => col.id === activeColumn.id);
+                    const tasks = [...newColumns[columnIndex].tasks]; // Copy the tasks in the column
             
-                const [movedTask] = activeTasks.splice(
-                    activeTasks.findIndex((task) => task.id === Number(active.id)),
-                    1
-                );
+                    const activeTaskIndex = tasks.findIndex(task => task.id === Number(active.id));
+                    const overTaskIndex = tasks.findIndex(task => task.id === Number(over.id));
             
-                overTasks.push(movedTask);
+                    if (activeTaskIndex === -1 || overTaskIndex === -1) return; // Ensure tasks are found
             
-                newColumns[activeColumnIndex].tasks = activeTasks;
-                newColumns[overColumnIndex].tasks = overTasks;
+                    newColumns[columnIndex].tasks = arrayMove(tasks, activeTaskIndex, overTaskIndex); // Rearrange tasks
+                } 
+                // **Handling drag-and-drop between different columns**
+                else {
+                    // Find the indices of the active and over columns
+                    const activeColumnIndex = newColumns.findIndex(col => col.id === activeColumn.id);
+                    const overColumnIndex = newColumns.findIndex(col => col.id === overColumn.id);
             
+                    // Copy the tasks from both columns
+                    const activeTasks = [...newColumns[activeColumnIndex].tasks];
+                    const overTasks = [...newColumns[overColumnIndex].tasks];
+            
+                    // Remove the task from the active column
+                    const [movedTask] = activeTasks.splice(
+                        activeTasks.findIndex((task) => task.id === Number(active.id)),
+                        1
+                    );
+            
+                    // Add the moved task to the over column
+                    overTasks.push(movedTask);
+            
+                    // Update the tasks in the respective columns
+                    newColumns[activeColumnIndex].tasks = activeTasks;
+                    newColumns[overColumnIndex].tasks = overTasks;
+                }
+            
+                // Set the updated columns array in the store
                 get().setColumns(newColumns);
             },
-            
 
             handleDragEnd: (event: DragOverEvent) => {
                 const { active, over } = event;
