@@ -38,6 +38,7 @@ export const useKanbanStore =
             },
             handleDragOver: (event: DragOverEvent) => {
                 const { active, over } = event;
+
                 if (!over) return; // Exit if there's no "over" task
             
                 const { columns } = get(); // Get the current columns
@@ -82,10 +83,14 @@ export const useKanbanStore =
                     // Update the tasks in the respective columns
                     newColumns[activeColumnIndex].tasks = activeTasks;
                     newColumns[overColumnIndex].tasks = overTasks;
+
+
                 }
             
                 // Set the updated columns array in the store
-                get().setColumns(newColumns);
+                setTimeout(() => {
+                    get().setColumns(newColumns);
+                }, 0)
             },
 
             handleDragEnd: (event: DragOverEvent) => {
@@ -131,7 +136,9 @@ export const useKanbanStore =
                     };
                 }
 
-                set({ columns: newColumns, activeTask: null });
+                setTimeout(() => {
+                    set({ columns: newColumns, activeTask: null });
+                }, 0)
             },
 
             findTaskById: (id: number): Task | null => {

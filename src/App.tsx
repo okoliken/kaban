@@ -44,7 +44,8 @@ function App() {
               className="flex-shrink-0 w-72"
             />
           ))}
-          <div className="flex-shrink-0 w-72 h-screen flex items-center justify-center bg-add-column-gradient dark:bg-none dark:bg-[#2B2C37] rounded-lg transition-all duration-200 ease-in-out active:scale-[0.98]">
+          <div className="flex-shrink-0 w-72 h-screen flex items-center justify-center bg-add-column-gradient dark:bg-none 
+          dark:bg-[#2B2C37] rounded-lg transition-all duration-200 ease-in-out active:scale-[0.98]">
             <button className="text-dark-gray text-[1.5rem] font-bold select-none">
               + New Column
             </button>

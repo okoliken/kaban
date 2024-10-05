@@ -85,7 +85,7 @@ export const Sidebar = () => {
           </svg>
           <Switch 
             checked={themeToggler.isToggled}
-            onCheckedChange={() => themeToggler.toggleTheme()} 
+            onCheckedChange={()=> themeToggler.toggleTheme()} 
             id="airplane-mode" 
           />
           <svg

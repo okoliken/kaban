@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useCallback } from "react";
 import { ThemeContext } from "../themeContext";
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
@@ -25,11 +25,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [theme]);
 
   // Theme toggling function
-  const toggleTheme = () => {
+
+  const toggleTheme = useCallback(() => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
     setToggled(!isToggled)
-  };
-
+  }, []);
+  
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, isToggled }}>
       {children}
