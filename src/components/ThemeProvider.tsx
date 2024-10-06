@@ -29,7 +29,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const toggleTheme = useCallback(() => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
     setToggled(!isToggled)
-  }, []);
+  }, [isToggled]);
   
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, isToggled }}>

@@ -7,10 +7,9 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+
 import { Column } from "./components/Column";
 import { useKanbanStore } from './store/useKanban';
-
-
 
 function App() {
   const columns = useKanbanStore((state) => state.columns);
@@ -25,7 +24,7 @@ function App() {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
+  
   return (
     <AppLayout>
       <DndContext
@@ -52,6 +51,8 @@ function App() {
           </div>
         </div>
       </DndContext>
+
+     
     </AppLayout>
   );
 }

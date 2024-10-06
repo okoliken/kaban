@@ -6,7 +6,7 @@ export interface Task {
     totalSubtasks: string;
   }
   
-export interface Column {
+ export interface Column {
     id: string | number;
     title: string;
     tasks: Task[];

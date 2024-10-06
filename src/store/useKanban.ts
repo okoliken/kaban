@@ -78,7 +78,7 @@ export const useKanbanStore =
                     );
             
                     // Add the moved task to the over column
-                    overTasks.push(movedTask);
+                    overTasks.unshift(movedTask);
             
                     // Update the tasks in the respective columns
                     newColumns[activeColumnIndex].tasks = activeTasks;
