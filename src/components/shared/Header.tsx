@@ -1,10 +1,10 @@
 import { Button } from "../ui/button";
 import { MenuIcon } from "../ui/MenuIcon";
 import { useModalStore } from "@/store/useModal";
-import { ModalContants } from "@/utils/constants";
+import { ModalConstants } from "@/utils/constants";
 
 export const Header = () => {
-  const triggerModal = useModalStore((state) => state.openModal);
+  const openModal = useModalStore((state) => state.openModal);
 
   return (
     <header className="h-24 border-b border-soft-gray dark:border-[#3E3F4E] flex items-center bg-white dark:bg-[#2B2C37]">
@@ -15,7 +15,7 @@ export const Header = () => {
 
         <div className="flex items-center gap-x-[1.5rem]">
           <Button
-            onClick={() => triggerModal(ModalContants.ADDNEWTASK)}
+            onClick={() => openModal(ModalConstants.ADDNEWTASK)}
             aria-label="Add New Task"
           >
             + Add New Task

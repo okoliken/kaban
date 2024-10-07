@@ -2,7 +2,7 @@
 
 export const AddNewTask = () => {
     return (
-        <div className="bg-white">
+        <div>
             Hello
         </div>
     )

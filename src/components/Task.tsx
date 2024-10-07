@@ -24,7 +24,7 @@ export const DraggableCard = ({
     }
   });
 
-  const tiltDegree = 2; // Adjust the tilt degree as needed
+  const tiltDegree = 2;
 
   const style: React.CSSProperties = {
     transform: isDragging

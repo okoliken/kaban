@@ -9,6 +9,7 @@ export default {
   	extend: {
   		borderRadius: {
   			'20': '1.25rem',
+			'6': '0.375rem',
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'

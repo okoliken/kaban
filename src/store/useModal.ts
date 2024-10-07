@@ -1,12 +1,12 @@
 import { create } from "zustand";
-import { ModalContants } from "@/utils/constants";
+import { ModalConstants } from "@/utils/constants";
 type modalState = {
   isOpen: boolean;
-  modalType: ModalContants | null;
+  modalType: ModalConstants | null;
 };
 
 type modalActions = {
-  openModal: (type: ModalContants) => void;
+  openModal: (type: ModalConstants) => void;
   closeModal: () => void;
 };
 
