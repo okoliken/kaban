@@ -51,8 +51,6 @@ function App() {
           </div>
         </div>
       </DndContext>
-
-     
     </AppLayout>
   );
 }
