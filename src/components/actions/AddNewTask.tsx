@@ -7,7 +7,6 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
@@ -100,16 +99,14 @@ export const AddNewTask = () => {
 
                     <Select>
                         <SelectTrigger>
-                            <SelectValue placeholder="Select a fruit" />
+                            <SelectValue placeholder="Select Status" />
                         </SelectTrigger>
                         <SelectContent position="item-aligned">
                             <SelectGroup>
-                                <SelectLabel>Fruits</SelectLabel>
-                                <SelectItem value="apple">Apple</SelectItem>
-                                <SelectItem value="banana">Banana</SelectItem>
-                                <SelectItem value="blueberry">Blueberry</SelectItem>
-                                <SelectItem value="grapes">Grapes</SelectItem>
-                                <SelectItem value="pineapple">Pineapple</SelectItem>
+                                {/* <SelectLabel>Fruits</SelectLabel> */}
+                                <SelectItem value="todo">Todo</SelectItem>
+                                <SelectItem value="doing">Doing</SelectItem>
+                                <SelectItem value="done">Done</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
