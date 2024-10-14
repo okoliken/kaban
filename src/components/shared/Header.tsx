@@ -2,6 +2,11 @@ import { Button } from "../ui/button";
 import { MenuIcon } from "../ui/MenuIcon";
 import { useModalStore } from "@/store/useModal";
 import { ModalConstants } from "@/utils/constants";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 export const Header = () => {
   const openModal = useModalStore((state) => state.openModal);
@@ -20,7 +25,20 @@ export const Header = () => {
           >
             + Add New Task
           </Button>
-          <MenuIcon />
+          <Popover>
+            <PopoverTrigger> <MenuIcon /></PopoverTrigger>
+            <PopoverContent className="p-4">
+              <ul className="flex flex-col gap-y-4">
+                <li className="text-[0.813rem] p-1">
+                  <button className="text-dark-gray font-medium">Edit Board</button>
+                </li>
+                <li className="text-[0.813rem] p-1">
+                  <button className="text-destructive-1 font-medium">Delete Board</button>
+                </li>
+              </ul>
+            </PopoverContent>
+          </Popover>
+
         </div>
       </div>
     </header>

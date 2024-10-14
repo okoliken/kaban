@@ -52,9 +52,9 @@ export const AppLayout = (props: React.PropsWithChildren) => {
         isOpen={isOpened}
         onRequestClose={closeModal}
         className={modalStyles.className}
-        overlayClassName={modalStyles.overlayClassName} 
+        overlayClassName={modalStyles.overlayClassName}
       >
-       {modalContent}
+        {modalContent}
       </Modal>
     </ThemeProvider>
   );

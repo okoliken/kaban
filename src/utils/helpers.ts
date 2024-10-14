@@ -98,9 +98,4 @@ export const initialData: Column[] = [
       },
     ],
   },
-  {
-    title: "COMPLETED",
-    id: generateRandomId(),
-    tasks: [],
-  },
 ];
