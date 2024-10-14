@@ -1,7 +1,7 @@
 export const MenuIcon = () => {
     return (
-      <button
-        className="w-11 h-11 flex items-center justify-center hover:bg-slate-100 rounded-full transition-all duration-100 dark:hover:bg-[#20212C]"
+      <div
+        className="w-11 h-11 flex items-center justify-center cursor-pointer hover:bg-slate-100 rounded-full transition-all duration-100 dark:hover:bg-[#20212C]"
         aria-label="Open menu"
       >
         <svg
@@ -18,7 +18,7 @@ export const MenuIcon = () => {
           <circle cx="2.30769" cy="10.0001" r="2.30769" fill="#828FA3" />
           <circle cx="2.30769" cy="17.6922" r="2.30769" fill="#828FA3" />
         </svg>
-      </button>
+      </div>
     );
   };
   

@@ -7,9 +7,25 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { generateRandomId } from "@/utils/helpers";
 
 export const Header = () => {
   const openModal = useModalStore((state) => state.openModal);
+
+  const PopOverMenuAction = [
+    {
+      title:'Edit Board',
+      className:'text-dark-gray',
+      action: () => openModal(ModalConstants.EIDTBOARD),
+      id:generateRandomId()
+    },
+    {
+      title:'Delete Board',
+      className:'text-destructive-1',
+      action: () => openModal(ModalConstants.DELETEBOARD),
+      id:generateRandomId()
+    },
+  ]
 
   return (
     <header className="h-24 border-b border-soft-gray dark:border-[#3E3F4E] flex items-center bg-white dark:bg-[#2B2C37]">
@@ -29,12 +45,11 @@ export const Header = () => {
             <PopoverTrigger> <MenuIcon /></PopoverTrigger>
             <PopoverContent className="p-4">
               <ul className="flex flex-col gap-y-4">
-                <li className="text-[0.813rem] p-1">
-                  <button className="text-dark-gray font-medium">Edit Board</button>
+                {PopOverMenuAction.map((menu) => (
+                <li onClick={() => menu.action()} key={menu.id} className="text-[0.813rem] p-1">
+                  <button className={`${menu.className} font-medium`}>{menu.title}</button>
                 </li>
-                <li className="text-[0.813rem] p-1">
-                  <button className="text-destructive-1 font-medium">Delete Board</button>
-                </li>
+                ))}
               </ul>
             </PopoverContent>
           </Popover>

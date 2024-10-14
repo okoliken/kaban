@@ -2,7 +2,7 @@ import { Header } from "@/components/shared/Header";
 import { Sidebar } from "@/components/shared/SideBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { useModalStore } from "@/store/useModal";
-import { AddNewTask } from "@/components/actions/AddNewTask";
+import { AddNewTask, AddNewBoard, DeleteBoard, EditBoard } from "@/components/actions";
 import { ModalConstants } from "@/utils/constants";
 import Modal from "react-modal";
 import { useMemo } from "react";
@@ -18,8 +18,9 @@ export const AppLayout = (props: React.PropsWithChildren) => {
 
   const modalContentMap: Record<ModalConstants, JSX.Element> = {
     [ModalConstants.ADDNEWTASK]: <AddNewTask />,
-    [ModalConstants.ADDNEWBOARD]: <></>,
-    [ModalConstants.DELETEBOARD]: <></>,
+    [ModalConstants.ADDNEWBOARD]: <AddNewBoard />,
+    [ModalConstants.DELETEBOARD]: <DeleteBoard closeDeleteBoardModal={() => closeModal()} />,
+    [ModalConstants.EIDTBOARD]: <EditBoard />,
     [ModalConstants.EDITTASK]: <></>,
   };
 

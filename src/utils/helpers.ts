@@ -1,5 +1,5 @@
 import { Column } from "./types";
-const generateRandomId = () => Math.floor(Math.random() * 1000000);
+export const generateRandomId = () => Math.floor(Math.random() * 1000000);
 
 export const initialData: Column[] = [
   {
