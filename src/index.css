@@ -30,6 +30,7 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
   }
+
   .dark {
     --background: 235, 16%, 15%, 1;
     --foreground: 210 20% 98%;
@@ -60,3 +61,50 @@
 
 }
 
+
+
+/* To hide scrollbars but still allow scrolling (for specific cases) */
+.scroll-container {
+  overflow: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+/* Overlay animations */
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* Modal content animations */
+.ReactModal__Content {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+  transition: all 300ms ease-in-out;
+}
+
+.ReactModal__Content--after-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.ReactModal__Content--before-close {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}

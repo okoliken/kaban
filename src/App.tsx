@@ -33,7 +33,7 @@ function App() {
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex gap-x-6 pt-[1.5rem] m-auto">
+        <div className="flex gap-x-6 pt-[1.5rem] m-auto scroll-container">
           {columns.map((column) => (
             <Column
               key={column.id}
