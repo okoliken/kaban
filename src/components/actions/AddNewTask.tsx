@@ -1,6 +1,6 @@
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { Close } from "../icons/close";
+import { Close } from "../icons/Close";
 import { Button } from "../ui/button";
 import {
     Select,

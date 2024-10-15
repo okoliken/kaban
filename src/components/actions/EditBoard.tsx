@@ -1,6 +1,6 @@
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { Close } from "../icons/close";
+import { Close } from "../icons/Close";
 
 export const EditBoard = () => {
     return (
