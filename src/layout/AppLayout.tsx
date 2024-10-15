@@ -10,7 +10,7 @@ import {
 } from "@/components/actions";
 import { ModalConstants } from "@/utils/constants";
 import Modal from "react-modal";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useEffect } from "react";
 
 Modal.setAppElement("#root");
 
@@ -39,11 +39,19 @@ export const AppLayout = (props: React.PropsWithChildren) => {
   }, [modalType]);
 
 
+  useEffect(() => {
+    if (isOpened) {
+      document.body.style.overflow = 'hidden'
+    }
+  },[isOpened])
+
   const modalStyles = {
-    overlayClassName: "fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center",
+    overlayClassName: "fixed inset-0 top-0 left-0 right-0 bottom-0 overflow-y-auto z-50 bg-black bg-opacity-50 flex items-center justify-center h-full",
     className:
-      "bg-white dark:bg-[#2B2C37]  dark:text-white z-50 grid w-full max-w-[30rem] gap-4 p-8 bg-background  shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-6",
+      "bg-white dark:bg-[#2B2C37] max-h-[90vh] overflow-y-auto dark:text-white z-50 grid w-full max-w-[30rem] gap-4 p-8 bg-background  shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-6",
   };
+
+
 
   return (
     <ThemeProvider>
@@ -51,7 +59,7 @@ export const AppLayout = (props: React.PropsWithChildren) => {
         <Sidebar />
         <main className="flex-1 flex flex-col overflow-hidden">
           <Header />
-          <div className="flex-1 overflow-x-auto pt-[0.5rem] pb-[3.125rem] px-6">
+          <div className="flex-1 overflow-x-auto pt-[0.5rem] pb-[3.125rem] px-6 scroll-container">
             {props.children}
           </div>
         </main>
