@@ -64,7 +64,7 @@
 
 
 /* To hide scrollbars but still allow scrolling (for specific cases) */
-.scroll-container {
+.remove-scroll-bar {
   overflow: auto;
   scrollbar-width: none;
   /* Firefox */
@@ -72,7 +72,7 @@
   /* Internet Explorer 10+ */
 }
 
-.scroll-container::-webkit-scrollbar {
+.remove-scroll-bar::-webkit-scrollbar {
   display: none;
 }
 

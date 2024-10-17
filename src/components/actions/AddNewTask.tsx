@@ -103,7 +103,6 @@ export const AddNewTask = () => {
                         </SelectTrigger>
                         <SelectContent position="item-aligned">
                             <SelectGroup>
-                                {/* <SelectLabel>Fruits</SelectLabel> */}
                                 <SelectItem value="todo">Todo</SelectItem>
                                 <SelectItem value="doing">Doing</SelectItem>
                                 <SelectItem value="done">Done</SelectItem>
@@ -119,7 +118,7 @@ export const AddNewTask = () => {
                         title="+ Add New Subtask"
                         aria-label="Add new subtask"
                     >
-                        + Add New Subtask
+                        Save Changes
                     </Button>
             </form>
         </section>

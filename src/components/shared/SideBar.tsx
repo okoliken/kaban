@@ -6,7 +6,52 @@ import { SunIcon } from "../icons/SunIcon";
 import { MoonIcon } from "../icons/MoonIcon";
 import { BoardIcon } from "../icons/BoardIcon";
 import { EyeClose } from "../icons/EyeClose";
+import { EyeOpen } from "../icons/EyeOpen";
 import { useSideBarToggle } from "@/store/useSideBarToggle";
+import { motion, AnimatePresence } from "framer-motion"
+
+
+const sidebarVariants = {
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 30,
+      duration: 0.3
+    }
+  },
+  closed: {
+    x: "-100%",
+    opacity: 0,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 30,
+      duration: 0.2
+    }
+  }
+};
+
+const contentVariants = {
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      delay: 0.15,
+      duration: 0.2
+    }
+  },
+  closed: {
+    x: "-100%",
+    opacity: 0,
+    transition: {
+      duration: 0.4
+    }
+  }
+};
+
 
 export const ThemeToggle = () => {
   const themeToggler = useContext(ThemeContext);
@@ -78,39 +123,72 @@ export const HideSidebarButton = ({
   );
 };
 
+export const ShowSideBarButton = ({
+  toggleSideBar,
+}: {
+  toggleSideBar: React.Dispatch<SetStateAction<boolean>>;
+}) => {
+  return (
+    <button
+      className="absolute left-0 bottom-8 bg-primary-1 w-14 h-12  flex items-center justify-center 
+    rounded-tr-[6.25rem] rounded-br-[6.25rem] pl-[1.125rem] pr-[1.375rem]" onClick={() => toggleSideBar(true)}>
+      <EyeOpen />
+    </button>
+  )
+}
+
 export const Sidebar = () => {
   const sideBarToggler = useSideBarToggle();
   const themeToggler = useContext(ThemeContext);
 
   return (
     <>
-      {sideBarToggler.sideBarToggleState && (
-        <aside className="bg-white dark:bg-[#2B2C37] w-full max-w-[16.25rem] lg:max-w-[18.75rem] border-r border-soft-gray dark:border-[#3E3F4E] pt-[2.049rem] flex flex-col justify-between">
-          <div>
-            <div className="pl-6 lg:pl-[2.125rem]">
+    <motion.aside
+      initial="closed"
+      animate={sideBarToggler.sideBarToggleState ? "open" : "closed"}
+      variants={sidebarVariants}
+      className="h-screen flex-shrink-0 overflow-hidden bg-white dark:bg-[#2B2C37] border-r border-soft-gray dark:border-[#3E3F4E]"
+    >
+      <AnimatePresence mode="wait">
+        {sideBarToggler.sideBarToggleState && (
+          <motion.div
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={contentVariants}
+            className="h-full w-[16.25rem] lg:w-[18.75rem] flex flex-col pt-8"
+          >
+            <div className="pl-6 lg:pl-8">
               <Logo isLightOrDark={themeToggler.isToggled} />
             </div>
 
-            <div className="mt-[3.375rem]">
-              <h3 className="pl-[2.125rem] text-dark-gray text-xs font-bold tracking-[0.15rem]">
+            <div className="mt-14">
+              <h3 className="pl-8 text-dark-gray text-xs font-bold tracking-[0.15rem]">
                 ALL BOARDS (3)
               </h3>
             </div>
 
             <BoardList />
-          </div>
 
-          <div className="w-full flex items-center justify-center flex-col mb-[2rem]">
-            <ThemeToggle />
+            <div className="mt-auto w-full flex items-center justify-center flex-col mb-8">
+              <ThemeToggle />
 
-            <div className="self-start pr-6 w-full">
-              <HideSidebarButton
-                toggleSideBar={sideBarToggler.setSideBarToggleState}
-              />
+              <div className="self-start pr-6 w-full">
+                <HideSidebarButton
+                  toggleSideBar={sideBarToggler.setSideBarToggleState}
+                />
+              </div>
             </div>
-          </div>
-        </aside>
-      )}
-    </>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.aside>
+
+    {!sideBarToggler.sideBarToggleState && (
+      <div className="flex-shrink-0">
+        <ShowSideBarButton toggleSideBar={sideBarToggler.setSideBarToggleState} />
+      </div>
+    )}
+  </>
   );
 };

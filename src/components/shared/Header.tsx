@@ -37,11 +37,14 @@ export const Header = () => {
   return (
     <header className="h-24 flex items-center bg-white dark:bg-[#2B2C37] border-b border-soft-gray dark:border-[#3E3F4E]">
       <div className="flex items-center justify-between w-full px-6">
-        <div className="flex items-center gap-x-[4.092rem] h-full">
+        <div className="flex items-center gap-x-8 h-full">
           {!sideBarToggler.sideBarToggleState && (
+            <>
             <div>
               <Logo isLightOrDark={themeToggler.isToggled} />
             </div>
+            <div className="h-24 w-[1px] bg-soft-gray dark:bg-[#3E3F4E]"></div>
+            </>
           )}
           <h2 className="font-bold text-xl lg:text-2xl leading-[1.89rem] dark:text-white">
             Platform Launch
@@ -56,7 +59,9 @@ export const Header = () => {
             + Add New Task
           </Button>
           <Popover>
-            <PopoverTrigger> <MenuIcon /></PopoverTrigger>
+            <PopoverTrigger>
+              <MenuIcon />
+            </PopoverTrigger>
             <PopoverContent className="p-4">
               <ul className="flex flex-col gap-y-4">
                 {PopOverMenuAction.map((menu) => (
@@ -67,7 +72,6 @@ export const Header = () => {
               </ul>
             </PopoverContent>
           </Popover>
-
         </div>
       </div>
     </header>
