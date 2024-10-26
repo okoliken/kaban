@@ -1,12 +1,14 @@
 import { DeleteBoard } from "./Delete";
 import { AddNewBoard } from "./AddNewBoard";
-import { AddNewTask } from "./AddNewTask";
+import { TaskModification } from "./TaskModification";
 import { EditBoard } from "./EditBoard";
+import { TaskDetails } from "./TaskDetails";
 
 
 export {
     DeleteBoard,
     AddNewBoard,
-    AddNewTask,
-    EditBoard
+    TaskModification,
+    EditBoard,
+    TaskDetails
 }

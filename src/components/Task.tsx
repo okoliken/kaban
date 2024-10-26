@@ -7,8 +7,9 @@ export const DraggableCard = ({
   children,
   id,
   className,
-  tasks
-}: React.PropsWithChildren<{ id: number | string; className: string, tasks: Task }>) => {
+  tasks,
+  openTaskDetails
+}: React.PropsWithChildren<{ id: number | string; className: string, tasks: Task, openTaskDetails: () => void }>) => {
   const {
     attributes,
     listeners,
@@ -37,12 +38,13 @@ export const DraggableCard = ({
   return (
     <Card
       ref={setNodeRef}
+      onClick={openTaskDetails}
       style={style}
       className={`${className} ${isDragging ? 'z-10 cursor-grabbing' : ''}`}
       {...attributes}
       {...listeners}
     >
-      {children}
+        {children}
     </Card>
   );
 };

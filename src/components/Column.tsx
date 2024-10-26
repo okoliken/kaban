@@ -6,6 +6,8 @@ import {
 import { Task } from "../utils/types";
 import { DraggableCard } from "./Task";
 import { useMemo } from "react";
+import { useModalStore } from "@/store/useModal";
+import { ModalConstants } from "@/utils/constants";
 
 export const Column = ({
   id,
@@ -18,6 +20,7 @@ export const Column = ({
   tasks: Task[];
   className: string;
 }) => {
+  const openModal = useModalStore((state) => state.openModal);
   const { setNodeRef } = useDroppable({
     id: id,
   });
@@ -46,6 +49,10 @@ export const Column = ({
             tasks={task}
             key={task.id}
             id={task.id}
+            openTaskDetails={() => {
+              console.log('open task details')
+              openModal(ModalConstants.TASKDETAILS)
+            }}
             className="mb-[1.25rem] w-[17.5rem]"
           >
             <h4 className="font-bold text-[0.938rem] mb-[0.5rem]">

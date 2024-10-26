@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/switch";
 import { ThemeContext } from "@/themeContext";
-import { useContext, SetStateAction } from "react";
+import { useContext, SetStateAction, useEffect } from "react";
 import { Logo } from "./Logo";
 import { SunIcon } from "../icons/SunIcon";
 import { MoonIcon } from "../icons/MoonIcon";
@@ -8,50 +8,8 @@ import { BoardIcon } from "../icons/BoardIcon";
 import { EyeClose } from "../icons/EyeClose";
 import { EyeOpen } from "../icons/EyeOpen";
 import { useSideBarToggle } from "@/store/useSideBarToggle";
-import { motion, AnimatePresence } from "framer-motion"
-
-
-const sidebarVariants = {
-  open: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
-      duration: 0.3
-    }
-  },
-  closed: {
-    x: "-100%",
-    opacity: 0,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
-      duration: 0.2
-    }
-  }
-};
-
-const contentVariants = {
-  open: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      delay: 0.15,
-      duration: 0.2
-    }
-  },
-  closed: {
-    x: "-100%",
-    opacity: 0,
-    transition: {
-      duration: 0.4
-    }
-  }
-};
-
+import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "@/hooks/useMediaQuery"; // You'll need to create this hook
 
 export const ThemeToggle = () => {
   const themeToggler = useContext(ThemeContext);
@@ -131,64 +89,93 @@ export const ShowSideBarButton = ({
   return (
     <button
       className="absolute left-0 bottom-8 bg-primary-1 w-14 h-12  flex items-center justify-center 
-    rounded-tr-[6.25rem] rounded-br-[6.25rem] pl-[1.125rem] pr-[1.375rem]" onClick={() => toggleSideBar(true)}>
+    rounded-tr-[6.25rem] rounded-br-[6.25rem] pl-[1.125rem] pr-[1.375rem]"
+      onClick={() => toggleSideBar(true)}
+    >
       <EyeOpen />
     </button>
-  )
-}
+  );
+};
 
 export const Sidebar = () => {
-  const sideBarToggler = useSideBarToggle();
+  const { sideBarToggleState, setSideBarToggleState } = useSideBarToggle();
   const themeToggler = useContext(ThemeContext);
+  const isMediumScreen = useMediaQuery("(max-width: 768px)"); // Adjust the breakpoint as needed
+
+  useEffect(() => {
+    if (isMediumScreen) {
+      setSideBarToggleState(false);
+    } else {
+      setSideBarToggleState(true);
+    }
+  }, [isMediumScreen, setSideBarToggleState]);
+
+  const sidebarVariants = {
+    open: {
+      width: "18.75rem",
+      transition: { duration: 0.3, ease: "easeInOut" },
+    },
+    closed: { width: "0rem", transition: { duration: 0.3, ease: "easeInOut" } },
+  };
+
+  const contentVariants = {
+    open: { opacity: 1, x: 0, transition: { delay: 0.1, duration: 0.2 } },
+    closed: { opacity: 0, x: -20, transition: { duration: 0.2 } },
+  };
+
+  const isSidebarVisible =
+    (sideBarToggleState === null || sideBarToggleState) && !isMediumScreen;
 
   return (
     <>
-    <motion.aside
-      initial="closed"
-      animate={sideBarToggler.sideBarToggleState ? "open" : "closed"}
-      variants={sidebarVariants}
-      className="h-screen flex-shrink-0 overflow-hidden bg-white dark:bg-[#2B2C37] border-r border-soft-gray dark:border-[#3E3F4E]"
-    >
-      <AnimatePresence mode="wait">
-        {sideBarToggler.sideBarToggleState && (
-          <motion.div
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={contentVariants}
-            className="h-full w-[16.25rem] lg:w-[18.75rem] flex flex-col pt-8"
-          >
-            <div className="pl-6 lg:pl-8">
-              <Logo isLightOrDark={themeToggler.isToggled} />
-            </div>
-
-            <div className="mt-14">
-              <h3 className="pl-8 text-dark-gray text-xs font-bold tracking-[0.15rem]">
-                ALL BOARDS (3)
-              </h3>
-            </div>
-
-            <BoardList />
-
-            <div className="mt-auto w-full flex items-center justify-center flex-col mb-8">
-              <ThemeToggle />
-
-              <div className="self-start pr-6 w-full">
-                <HideSidebarButton
-                  toggleSideBar={sideBarToggler.setSideBarToggleState}
-                />
+      <motion.aside
+        initial={false}
+        animate={isSidebarVisible ? "open" : "closed"}
+        variants={sidebarVariants}
+        className="h-screen flex-shrink-0 overflow-hidden bg-white dark:bg-[#2B2C37] border-r border-soft-gray dark:border-[#3E3F4E]"
+      >
+        <AnimatePresence mode="wait">
+          {isSidebarVisible && (
+            <motion.div
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={contentVariants}
+              className="h-full w-full flex flex-col pt-8"
+            >
+              <div className="pl-6 lg:pl-8">
+                <Logo isLightOrDark={themeToggler.isToggled} />
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.aside>
 
-    {!sideBarToggler.sideBarToggleState && (
-      <div className="flex-shrink-0">
-        <ShowSideBarButton toggleSideBar={sideBarToggler.setSideBarToggleState} />
-      </div>
-    )}
-  </>
+              <div className="mt-14">
+                <h3 className="pl-8 text-dark-gray text-xs font-bold tracking-[0.15rem]">
+                  ALL BOARDS (3)
+                </h3>
+              </div>
+
+              <BoardList />
+
+              <div className="mt-auto w-full flex items-center justify-center flex-col mb-8">
+                <ThemeToggle />
+
+                <div className="self-start pr-6 w-full">
+                  <HideSidebarButton
+                    toggleSideBar={() => setSideBarToggleState(false)}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.aside>
+
+      {!isSidebarVisible && (
+        <div className="flex-shrink-0">
+          <ShowSideBarButton
+            toggleSideBar={() => setSideBarToggleState(true)}
+          />
+        </div>
+      )}
+    </>
   );
 };

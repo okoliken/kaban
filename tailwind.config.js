@@ -70,7 +70,8 @@ export default {
   			}
   		},
   		width: {
-  			'174': '10.875rem'
+  			'174': '10.875rem',
+  			sidebar: 'var(--sidebar-width)',
   		},
   		fontFamily: {
   			PlusJakarta: ["Plus Jakarta Sans", 'sans-serif']
@@ -90,6 +91,17 @@ export default {
   plugins: [
 	require("tailwindcss-animate"),
 	require('@tailwindcss/typography'),
-],
+	function({ addBase }) {
+	  addBase({
+	    ':root': {
+	      '--sidebar-width': '18.75rem',
+	    },
+	    '@screen md': {
+	      ':root': {
+	        '--sidebar-width': '16.25rem',
+	      },
+	    },
+	  });
+	},
+  ],
 }
-

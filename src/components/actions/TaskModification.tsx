@@ -11,7 +11,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-export const AddNewTask = () => {
+export const TaskModification = () => {
     return (
         <section className="grid gap-y-6" aria-labelledby="add-task-title">
             <header id="add-task-title" className="text-lg text-[#000112] dark:text-white font-bold">

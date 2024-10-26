@@ -1,0 +1,14 @@
+:root {
+  --sidebar-width: 18.75rem;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 16.25rem;
+  }
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  /* other sidebar styles */
+}

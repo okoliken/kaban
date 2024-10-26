@@ -38,7 +38,7 @@ export const Header = () => {
     <header className="h-24 flex items-center bg-white dark:bg-[#2B2C37] border-b border-soft-gray dark:border-[#3E3F4E]">
       <div className="flex items-center justify-between w-full px-6">
         <div className="flex items-center gap-x-8 h-full">
-          {!sideBarToggler.sideBarToggleState && (
+          {sideBarToggler.sideBarToggleState === null || !sideBarToggler.sideBarToggleState && (
             <>
             <div>
               <Logo isLightOrDark={themeToggler.isToggled} />
@@ -53,12 +53,12 @@ export const Header = () => {
 
         <div className="flex items-center gap-x-[1.5rem]">
           <Button
-            onClick={() => openModal(ModalConstants.ADDNEWTASK)}
+            onClick={() => openModal(ModalConstants.TASKMODIFICATION)}
             aria-label="Add New Task"
           >
             + Add New Task
           </Button>
-          <Popover>
+          <Popover >
             <PopoverTrigger>
               <MenuIcon />
             </PopoverTrigger>
