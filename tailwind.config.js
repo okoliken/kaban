@@ -85,7 +85,7 @@ export default {
 		boxShadow: {
 			'll': '0px 4px 6px 0px #364E7E1A',
 			'popover':'0px 10px 20px 0px #364E7E40'
-		  }
+		  },
   	}
   },
   plugins: [
